@@ -8,19 +8,49 @@ import java.awt.*;
  */
 
 public class TabPanel extends JPanel {
-/*
+
 	private JTabbedPane tabPane;
 	
 	/*
 	 * Constructor
-	 
+	 */
 	
 	public TabPanel(){
-		tabPane = new JTabbedPane(JTabbedPane.LEFT);
+		tabPane = new JTabbedPane();
 		
-		//Adding tabs with no text for now
-		tabPane.addTab(null, tabPane);
-		tabPane.addTab(null, tabPane);
+		JComponent dashboardPanel = makeTextPanel("Dashboard Panel");
+		tabPane.addTab("Dashboard", null, dashboardPanel, "Dashboard Content");
+		
+		JComponent employeesPanel = makeTextPanel("Employees Panel");
+		tabPane.addTab("Employees", null, employeesPanel, "Employees Content");
+		
+		JComponent projectsPanel = makeTextPanel("Projects Panel");
+		tabPane.addTab("Projects", null, projectsPanel, "Projects Content");
+
+		JComponent customersPanel = makeTextPanel("Customers Panel");
+		tabPane.addTab("Customers", null, customersPanel, "Customers Content");
+
+		JComponent reportsPanel = makeTextPanel("Reports Panel");
+		tabPane.addTab("Reports", null, reportsPanel, "Reports Content");
+		
+		JComponent resumePanel = makeTextPanel("Resume Panel");
+		tabPane.addTab("Resume", null, resumePanel, "Resume Content");
+		
+		//Adding the tabbed pane to this panel.
+		add(tabPane);
+		
+		//Enabling the use of scrolling tabs.
+		tabPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 	}
-*/
+	
+	// Method to make the text panel.
+	protected JComponent makeTextPanel(String text){
+		JPanel panel = new JPanel(false);
+		JLabel filler = new JLabel(text);
+		filler.setHorizontalAlignment(JLabel.CENTER);
+		panel.setLayout(new GridLayout(1,1));
+		panel.add(filler);
+		return panel;
+	}
+
 }
