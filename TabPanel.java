@@ -1,6 +1,7 @@
 package marsPackage;
 
 import javax.swing.*;
+
 import java.awt.*;
 
 /*
@@ -10,6 +11,7 @@ import java.awt.*;
 public class TabPanel extends JPanel {
 
 	private JTabbedPane tabPane;
+	private GridBagLayout g;
 	
 	/*
 	 * Constructor
@@ -17,6 +19,8 @@ public class TabPanel extends JPanel {
 	
 	public TabPanel(){
 		tabPane = new JTabbedPane();
+		tabPane.setPreferredSize(new Dimension(985, 605));
+		setVisible(true);
 		
 		JComponent dashboardPanel = makeTextPanel("Dashboard Panel");
 		tabPane.addTab("Dashboard", null, dashboardPanel, "Dashboard Content");
@@ -39,8 +43,15 @@ public class TabPanel extends JPanel {
 		//Adding the tabbed pane to this panel.
 		add(tabPane);
 		
+		/*
 		//Enabling the use of scrolling tabs.
 		tabPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+		
+		g = new GridBagLayout();
+		getRootPane().add(tabPane, g);
+		g.fill = g.BOTH;
+		
+		*/
 	}
 	
 	// Method to make the text panel.
@@ -49,6 +60,7 @@ public class TabPanel extends JPanel {
 		JLabel filler = new JLabel(text);
 		filler.setHorizontalAlignment(JLabel.CENTER);
 		panel.setLayout(new GridLayout(1,1));
+		//setLayout(new FlowLayout());
 		panel.add(filler);
 		return panel;
 	}

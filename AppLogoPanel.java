@@ -9,9 +9,6 @@ import java.awt.*;
 
 public class AppLogoPanel extends JPanel{
 
-	public final int LOGOHEIGHT = 227;
-	public final int LOGOWIDTH = 994;
-	
 	private JButton testButton; //placeholder button will be replaced by logo
 	
 	/*
@@ -20,15 +17,21 @@ public class AppLogoPanel extends JPanel{
 	
 	public AppLogoPanel(){
 		//Create a flow layout for the logo to be contained.
-		setLayout(new FlowLayout());
+		JPanel panel = new JPanel();
+		panel.setLayout(new FlowLayout());
 		
 		//Create button placeholder
 		testButton = new JButton("LOGO SHOULD BE HERE. Will replace later!!");
-		//Changing button size to be the size of the logo
-		testButton.setSize(LOGOWIDTH, LOGOHEIGHT);
 		
 		//Add button to flow layout
-		add(testButton);
+		panel.add(testButton);
+		
+		//setting button size
+		testButton.setPreferredSize(new Dimension(990, 227)); 
+		//Logo should only be 990 x 227 if the tabbed panel can be placed on top of it.
+		
+		//Adding the panel
+		add(panel);
 	}
 	
 }
