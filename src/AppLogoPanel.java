@@ -29,13 +29,8 @@ public class AppLogoPanel extends JPanel{
 		//Create the label and get the logo in there
 		//logoHolder = new JLabel(null, logo, JLabel.CENTER);
 		logoHolder = new JLabel(logo);
-		
-		//Add button to flow layout
 		panel.add(logoHolder);
-		
-		//setting button size
 		logoHolder.setPreferredSize(new Dimension(1000, 300)); 
-		//Logo should only be 990 x 227 if the tabbed panel can be placed on top of it.
 		
 		//Adding the panel
 		add(panel);

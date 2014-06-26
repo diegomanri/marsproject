@@ -12,6 +12,12 @@ public class TabPanel extends JPanel {
 
 	private JTabbedPane tabPane;
 	private GridBagLayout g;
+	private DashTab dt;
+	private EmpTab et;
+	private ProTab pt;
+	private CusTab ct;
+	private RepTab rt;
+	private ResTab rst;
 	
 	/*
 	 * Constructor
@@ -20,58 +26,35 @@ public class TabPanel extends JPanel {
 	public TabPanel(){
 		tabPane = new JTabbedPane();
 		tabPane.setPreferredSize(new Dimension(963, 753));
-		//tried at first with (new Dimension(985, 605))
+		tabPane.setTabPlacement(SwingConstants.LEFT);
 		setVisible(true);
 		
-		JComponent dashboardPanel = makeTextPanel("Dashboard Panel");
-		tabPane.addTab("Dashboard", null, dashboardPanel, "Dashboard Content");
-		dashboardPanel.setBackground(Color.WHITE);
+		dt = new DashTab();
+		tabPane.addTab("Dashboard", dt.getDashTab());
 		
-		JComponent employeesPanel = makeTextPanel("Employees Panel");
-		tabPane.addTab("Employees", null, employeesPanel, "Employees Content");
-		employeesPanel.setBackground(Color.WHITE);
+		et = new EmpTab();
+		tabPane.addTab("Employees", et.getEmpTab());
+	
+		pt = new ProTab();
+		tabPane.addTab("Projects", pt.getProTab());
 		
-		JComponent projectsPanel = makeTextPanel("Projects Panel");
-		tabPane.addTab("Projects", null, projectsPanel, "Projects Content");
-		projectsPanel.setBackground(Color.WHITE);
+		ct = new CusTab();
+		tabPane.addTab("Customers", ct.getCusTab());
 
-		JComponent customersPanel = makeTextPanel("Customers Panel");
-		tabPane.addTab("Customers", null, customersPanel, "Customers Content");
-		customersPanel.setBackground(Color.WHITE);
+		rt = new RepTab();
+		tabPane.addTab("Reports", rt.getRepTab());
 
-		JComponent reportsPanel = makeTextPanel("Reports Panel");
-		tabPane.addTab("Reports", null, reportsPanel, "Reports Content");
-		reportsPanel.setBackground(Color.WHITE);
-		
-		JComponent resumePanel = makeTextPanel("Resume Panel");
-		tabPane.addTab("Resume", null, resumePanel, "Resume Content");
-		resumePanel.setBackground(Color.WHITE);
+		rst = new ResTab();
+		tabPane.addTab("Resume", rst.getResTab());
 		
 		//Customizing the panel and adding the tabbed pane to this panel.
 		setBackground(Color.WHITE);
 		setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.gray));
 		add(tabPane);
 		
-		/*
-		//Enabling the use of scrolling tabs.
+		//Enabling the use of scrolling tabs if there are so many tabs
+		//that you need to scroll.
 		tabPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-		
-		g = new GridBagLayout();
-		getRootPane().add(tabPane, g);
-		g.fill = g.BOTH;
-		
-		*/
-	}
-	
-	// Method to make the text panel.
-	protected JComponent makeTextPanel(String text){
-		JPanel panel = new JPanel(false);
-		JLabel filler = new JLabel(text);
-		filler.setHorizontalAlignment(JLabel.CENTER);
-		panel.setLayout(new GridLayout(1,1));
-		//setLayout(new FlowLayout());
-		panel.add(filler);
-		return panel;
-	}
 
+	}
 }
