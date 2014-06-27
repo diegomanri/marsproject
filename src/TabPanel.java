@@ -27,34 +27,38 @@ public class TabPanel extends JPanel {
 		tabPane = new JTabbedPane();
 		tabPane.setPreferredSize(new Dimension(963, 753));
 		tabPane.setTabPlacement(SwingConstants.LEFT);
-		setVisible(true);
+		
+		tabPane.setBackground(Color.WHITE);
 		
 		dt = new DashTab();
 		tabPane.addTab("Dashboard", dt.getDashTab());
+		tabPane.setBackgroundAt(0, (new Color(255, 255, 255)));
 		
 		et = new EmpTab();
 		tabPane.addTab("Employees", et.getEmpTab());
-	
+		tabPane.setBackgroundAt(1, (new Color(255, 204, 153)));
+		
 		pt = new ProTab();
 		tabPane.addTab("Projects", pt.getProTab());
+		tabPane.setBackgroundAt(2, (new Color(204, 255, 102)));
 		
 		ct = new CusTab();
 		tabPane.addTab("Customers", ct.getCusTab());
+		tabPane.setBackgroundAt(3, (new Color(153, 204, 255)));
 
 		rt = new RepTab();
 		tabPane.addTab("Reports", rt.getRepTab());
+		tabPane.setBackgroundAt(4, (new Color(204, 153, 255)));
 
 		rst = new ResTab();
 		tabPane.addTab("Resume", rst.getResTab());
+		tabPane.setBackgroundAt(5, (new Color(255, 153, 204)));
 		
 		//Customizing the panel and adding the tabbed pane to this panel.
 		setBackground(Color.WHITE);
 		setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.gray));
 		add(tabPane);
-		
-		//Enabling the use of scrolling tabs if there are so many tabs
-		//that you need to scroll.
-		tabPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+
 
 	}
 }
