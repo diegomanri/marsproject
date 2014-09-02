@@ -6,10 +6,14 @@ import javax.swing.*;
 
 public class MarsMain extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2953240271672230799L;
 	private JLayeredPane panelHolder;
 	private AppLogoPanel applogo;
 	private TabPanel tabpanel;
-	private GridBagConstraints gbc;
+	//private GridBagConstraints gbc;
 	
 	
 	public MarsMain(){
@@ -25,6 +29,7 @@ public class MarsMain extends JFrame {
 		 * I have to write the code that positions an sizes components
 		 * within it.
 		 */
+		
 		
 		//Creating the panel holder
 		panelHolder = new JLayeredPane();
@@ -49,9 +54,12 @@ public class MarsMain extends JFrame {
 	
 	public static void main(String[] args) {
 		
+
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					Thread.sleep(4000);
 					MarsMain frame = new MarsMain();
 					frame.getContentPane().setBackground(Color.WHITE);
 					frame.setVisible(true);
@@ -60,6 +68,5 @@ public class MarsMain extends JFrame {
 				}
 			}
 		});
-	}
-	
+	}	
 }
