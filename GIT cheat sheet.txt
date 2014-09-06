@@ -33,3 +33,6 @@ git branch -a  <-- To see all remote branches in red that are hidden
 git checkout origin(or upstream)/<branch name> <-- To take a look at what the branch has but no changes will be applied
 git checkout -b <branch name> origin(or upstream)<branch name>  <-- to actually copy the branch and be able to work on it.
 git push -u origin <branchName>   <-- to get the branch up to your forked copy as well.
+
+Update your local repo with your online repo
+git pull origin  or git pull origin master
