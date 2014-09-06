@@ -1,0 +1,34 @@
+GIT Cheat Sheet
+
+To remove a local branch:
+git branch -d the_local_branch
+
+To remove a remote branch:
+git push origin --delete <branchName>
+or
+git push origin :<branchName>
+
+To remove one or more files that have been deleted
+git add -u .
+
+To push a branch with changes to a remote repo
+git push -u origin <branchName>
+
+To check your origin and upstream repo URLs
+git remote -vgit 
+
+To add upstream repo so that you can receive changes from there
+git remote add upstream <Clone repo URL from repo owner>
+
+Syncing a fork - to keep up to date with the upstream repo.
+https://help.github.com/articles/syncing-a-fork
+git fetch upstream
+git checkout master
+git merge upstream/master
+
+How to add remote branches to your git local copy
+http://stackoverflow.com/questions/67699/how-to-clone-all-remote-branches-with-git?rq=1
+git branch -a  <-- To see all remote branches in red that are hidden
+git checkout origin(or upstream)/<branch name> <-- To take a look at what the branch has but no changes will be applied
+git checkout -b <branch name> origin(or upstream)<branch name>  <-- to actually copy the branch and be able to work on it.
+git push -u origin <branchName>   <-- to get the branch up to your forked copy as well.
