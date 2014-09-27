@@ -47,7 +47,7 @@ public class ProTab {
      * g variable.
      */
             
-    testLabel = new JLabel("Testing Here 1");
+    testLabel = new JLabel("Testing Here 1! :D");
     testLabel.setPreferredSize(new Dimension(500, 500));
     testLabel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.gray));
     g.gridx = 0;
