@@ -27,12 +27,12 @@ git checkout master (only if you are not in the master branch)
 git merge upstream/master (Updates will reflect your local repo only)
 git push (so that your fork copy online repo is updated as well)
 
+Update your local repo with your online repo
+git pull origin  or git pull origin master
+
 How to add remote branches to your git local copy
 http://stackoverflow.com/questions/67699/how-to-clone-all-remote-branches-with-git?rq=1
 git branch -a  <-- To see all remote branches in red that are hidden
 git checkout origin(or upstream)/<branch name> <-- To take a look at what the branch has but no changes will be applied
 git checkout -b <branch name> origin(or upstream)<branch name>  <-- to actually copy the branch and be able to work on it.
 git push -u origin <branchName>   <-- to get the branch up to your forked copy as well.
-
-Update your local repo with your online repo
-git pull origin  or git pull origin master
