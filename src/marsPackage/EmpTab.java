@@ -35,8 +35,8 @@ public class EmpTab {
     
     //Adding scrollPane to Content Pane and adding those two to empPanel
     scrollPane = new JScrollPane(contentPane);
-    scrollPane.setPreferredSize(new Dimension(875, 745));
-    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    scrollPane.setPreferredSize(new Dimension(875, 550));
+    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
     scrollPane.setBackground(Color.WHITE);
     empPanel.add(scrollPane);
@@ -49,9 +49,11 @@ public class EmpTab {
             
     testLabel = new JLabel("Testing Here 1");
     testLabel.setPreferredSize(new Dimension(500, 500));
-    testLabel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.gray));
+    testLabel.setBorder(BorderFactory.createMatteBorder(5, 5, 5, 5, Color.gray));
     g.gridx = 0;
     g.gridy = 0;
+    //g.fill =g.HORIZONTAL;
+    g.anchor = g.NORTHEAST;
     contentPane.add(testLabel, g);
     
     testLabel2 = new JLabel("Testing Here 2");
