@@ -20,7 +20,7 @@ public class MarsMain extends JFrame {
 		
 		//Setting up the JFrame
 		setTitle("MARS 1.0");
-		setPreferredSize(new Dimension(1000, 900));
+		setPreferredSize(new Dimension(1000, 710));
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -33,7 +33,7 @@ public class MarsMain extends JFrame {
 		
 		//Creating the panel holder
 		panelHolder = new JLayeredPane();
-		panelHolder.setPreferredSize(new Dimension(1000, 900));
+		panelHolder.setPreferredSize(new Dimension(1000, 710));
 		setLayout(new BorderLayout());
 		add(panelHolder, BorderLayout.NORTH);
 		panelHolder.setBounds(0, 0, 600, 400);
@@ -59,7 +59,7 @@ public class MarsMain extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Thread.sleep(4000);
+					Thread.sleep(1);
 					MarsMain frame = new MarsMain();
 					frame.getContentPane().setBackground(Color.WHITE);
 					frame.setVisible(true);
