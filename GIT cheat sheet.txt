@@ -20,11 +20,15 @@ git remote -vgit
 To add upstream repo so that you can receive changes from there
 git remote add upstream <Clone repo URL from repo owner>
 
-Syncing a fork - to keep up to date with the upstream repo.
+Syncing a fork - to keep up to date with the upstream repo (The repo owner's code)
 https://help.github.com/articles/syncing-a-fork
 git fetch upstream
-git checkout master
-git merge upstream/master
+git checkout master (only if you are not in the master branch)
+git merge upstream/master (Updates will reflect your local repo only)
+git push (so that your fork copy online repo is updated as well)
+
+Update your local repo with your online repo
+git pull origin  or git pull origin master
 
 How to add remote branches to your git local copy
 http://stackoverflow.com/questions/67699/how-to-clone-all-remote-branches-with-git?rq=1

@@ -35,8 +35,8 @@ public class ProTab {
     
     //Adding scrollPane to Content Pane and adding those two to proPanel
     scrollPane = new JScrollPane(contentPane);
-    scrollPane.setPreferredSize(new Dimension(875, 745));
-    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    scrollPane.setPreferredSize(new Dimension(875, 550));
+    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
     scrollPane.setBackground(Color.WHITE);
     proPanel.add(scrollPane);
@@ -47,7 +47,7 @@ public class ProTab {
      * g variable.
      */
             
-    testLabel = new JLabel("Testing Here 1");
+    testLabel = new JLabel("Testing Here 1! :D");
     testLabel.setPreferredSize(new Dimension(500, 500));
     testLabel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.gray));
     g.gridx = 0;
