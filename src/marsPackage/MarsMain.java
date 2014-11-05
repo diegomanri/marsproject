@@ -21,7 +21,7 @@ public class MarsMain extends JFrame {
 		//Setting up the JFrame
 		setTitle("MARS 1.0");
 		setPreferredSize(new Dimension(1000, 710));
-		setResizable(false);
+		setResizable(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		/*
