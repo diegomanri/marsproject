@@ -10,6 +10,10 @@ import java.awt.*;
 
 public class AppLogoPanel extends JPanel{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6705480536789390858L;
 	private JLabel logoHolder; //placeholder button will be replaced by logo
 	private ImageIcon logo;
 	private JPanel panel;
