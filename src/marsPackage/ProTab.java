@@ -10,7 +10,10 @@ public class ProTab extends JPanel {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -7479922044115030385L;
+	/*
+	 * ProTab main page variables
+	 */
 	private JPanel eastPanel;
     private JButton advSbutton;
     private JButton quickSbutton;
@@ -33,18 +36,24 @@ public class ProTab extends JPanel {
     private JScrollPane proTableSP;
     private JScrollPane scrollPane;
     
-    //CardLayout variables
+	/*
+	 * NewProject page variables
+	 */
+	private JPanel newProPanel;
+	private JPanel ncontentPane;
+	private JPanel tButtonsPanel;
+    private JScrollPane nscrollPane;
+    private JButton backProTabButton;    
+    
+	/*
+	 * CardLayout Variables
+	 */
     private JPanel cardPanel;
     private static final String CARD_PROJECTTAB = "Card Project Tab";
     private static final String CARD_NEWPROJECT = "Card Add Project";
-    private NewProject newProject;
-    //private TabPanel tp = new TabPanel();
     
-    /*
-     * Constructor
-     * All of your GUI components should be added to
-     * contentPane using the gridBagLayout.
-     */
+    
+    /*CONSTRUCTOR*/
     
     public ProTab(){
     	
@@ -52,10 +61,14 @@ public class ProTab extends JPanel {
     cardPanel = new JPanel();
     cardPanel.setLayout(new CardLayout(0,3));    	
     	
-    //Creating the proPanel that holds all other panels (below cardPanel)
+    //Creating the card proPanel that holds the main panel items
     proPanel = new JPanel();
     proPanel.setBackground(new Color(204, 255, 102));
 
+	//Creating the card newProPanel that holds the New Project screen items
+    newProPanel = new JPanel();
+    newProPanel.setBackground(new Color(204, 255, 102));
+    
     
     /*
       ==========================
@@ -64,10 +77,13 @@ public class ProTab extends JPanel {
     */
 
     cardPanel.add(proPanel, CARD_PROJECTTAB);
-    newProject = new NewProject();
-    cardPanel.add(newProject.getNewProPanel(), CARD_NEWPROJECT);
+    cardPanel.add(newProPanel, CARD_NEWPROJECT);
  
-    
+    /*
+		======================
+		ProTab main page START
+		======================
+     */
     
     //Creating the contentPane that holds all GUI components and
     //uses vertical/horizontal sidebars as needed
@@ -226,14 +242,77 @@ public class ProTab extends JPanel {
 	bButtonsPanel.add(viewProjectButton);
 	bButtonsPanel.add(addProjectButton);
 	
-	addProjectButton.addActionListener(new buttonListener());
+	addProjectButton.addActionListener(new newProButtonListener());
 	
 	//Project bottom buttons END
 	
+    /*
+		====================
+		ProTab main page END
+		====================
+     */
+	
+    /*
+		======================
+		New Project page START
+		======================
+     */
+	
+    
+    //contentPane Panel holds all other panels together in this class.
+    ncontentPane = new JPanel();
+    ncontentPane.setBackground(Color.WHITE);
+    
+    //Giving the contentPane the GridBagLayout
+    ncontentPane.setLayout(new GridBagLayout());
+    GridBagConstraints f = new GridBagConstraints();
+    f.insets = new Insets(20,0,0,0);
+    
+	//Adding scrollPane to Content Pane and adding those two to newProPanel
+	nscrollPane = new JScrollPane(ncontentPane);
+	nscrollPane.setPreferredSize(new Dimension(875, 550));
+	nscrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+	nscrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+	nscrollPane.setBackground(Color.WHITE);
+	newProPanel.add(nscrollPane);
+    
+    /*
+     * You may begin adding your GUI components from this point forward.
+     * Remember to only use GridBagLayout with GridBagConstraints using the
+     * g variable.
+     */
+	
+	//Project bottom buttons START
+	
+	 tButtonsPanel = new JPanel();
+	 tButtonsPanel.setBackground(Color.WHITE);
+	 tButtonsPanel.setBorder(BorderFactory.createMatteBorder(0,0,0,0, Color.gray));
+	 tButtonsPanel.setLayout(new FlowLayout());
+	    f.anchor = GridBagConstraints.PAGE_END;
+	    f.gridx = 0;
+	    f.gridy = 0;
+	    ncontentPane.add(tButtonsPanel, f);
+	    
+	backProTabButton = new JButton("Go Back");
+	backProTabButton.addActionListener(new mainProButtonListener());
+	
+	tButtonsPanel.add(backProTabButton);
+	
+	
+    /*
+		====================
+		New Project page END
+		====================
+     */
     }
     
-  //Project bottom buttons ActionListeners
-    private class buttonListener implements ActionListener{
+    /*
+    ======================
+    Button ActionListeners
+    ======================
+    */
+    
+    private class newProButtonListener implements ActionListener{
   		public void actionPerformed(ActionEvent ae){
   			if (ae.getSource() == addProjectButton){
   			CardLayout cl = (CardLayout) cardPanel.getLayout();
@@ -241,6 +320,21 @@ public class ProTab extends JPanel {
   			}
   		}
     }
+
+    private class mainProButtonListener implements ActionListener{
+  		public void actionPerformed(ActionEvent ae){
+  			if (ae.getSource() == backProTabButton){
+  			CardLayout cl = (CardLayout) cardPanel.getLayout();
+  			cl.show(cardPanel, CARD_PROJECTTAB);
+  			}
+  		}
+    }
+    
+    /*
+    ==============
+    ProTab Methods
+    ==============
+    */
     
     
     /**
@@ -261,9 +355,4 @@ public class ProTab extends JPanel {
 		return cardPanel;
 	}
 	
-	/*
-	public String getCARD_PROJECTTAB(){
-		return CARD_PROJECTTAB;
-	}
-	*/
 }
