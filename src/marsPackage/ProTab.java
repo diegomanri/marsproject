@@ -43,7 +43,12 @@ public class ProTab extends JPanel {
 	private JPanel ncontentPane;
 	private JPanel tButtonsPanel;
     private JScrollPane nscrollPane;
-    private JButton backProTabButton;    
+    private JButton backProTabButton;
+	private JButton upContractButton;
+	private JButton saveNewProButton;
+	private JLabel buttonPanelSpace;
+	private JLabel newTableTitle;
+	private ProPanels newPro;
     
 	/*
 	 * CardLayout Variables
@@ -279,24 +284,63 @@ public class ProTab extends JPanel {
     /*
      * You may begin adding your GUI components from this point forward.
      * Remember to only use GridBagLayout with GridBagConstraints using the
-     * g variable.
+     * f variable.
      */
+	//New Table title
+	newTableTitle = new JLabel("New Project");
+	newTableTitle.setFont(new Font("Serif", Font.PLAIN, 25));
+		f.anchor = GridBagConstraints.LINE_START;
+		f.gridx = 0;
+		f.gridy = 0;
+		ncontentPane.add(newTableTitle, f);
+		
+		/*
+	proNameP = new JPanel(new FlowLayout());
+		f.anchor = GridBagConstraints.LINE_END;
+		f.gridx = 1;
+		f.gridy = 0;
+		ncontentPane.add(proNameP, f);
+		*/
+		
 	
-	//Project bottom buttons START
+	//New Project top buttons START
 	
 	 tButtonsPanel = new JPanel();
 	 tButtonsPanel.setBackground(Color.WHITE);
-	 tButtonsPanel.setBorder(BorderFactory.createMatteBorder(0,0,0,0, Color.gray));
+	 tButtonsPanel.setBorder(BorderFactory.createMatteBorder(0,0,2,0, Color.gray));
 	 tButtonsPanel.setLayout(new FlowLayout());
 	    f.anchor = GridBagConstraints.PAGE_END;
 	    f.gridx = 0;
-	    f.gridy = 0;
+	    f.gridy = 1;
 	    ncontentPane.add(tButtonsPanel, f);
 	    
 	backProTabButton = new JButton("Go Back");
 	backProTabButton.addActionListener(new mainProButtonListener());
 	
+	upContractButton = new JButton("Upload Contract");
+	
+	saveNewProButton = new JButton("Save New Project");
+	saveNewProButton.setBackground(Color.GREEN);
+	
+	buttonPanelSpace = new JLabel();
+	buttonPanelSpace.setPreferredSize(new Dimension(475, 0));
+	
 	tButtonsPanel.add(backProTabButton);
+	tButtonsPanel.add(upContractButton);
+	tButtonsPanel.add(saveNewProButton);
+	tButtonsPanel.add(buttonPanelSpace);
+	
+	//New Project top buttons END
+	
+	//Assign Customer&Employees to Project START
+	newPro = new ProPanels();
+	JPanel addEmpPane = newPro.getAddEmpPanel();
+	f.gridx = 0;
+	f.gridy = 2;
+	ncontentPane.add(addEmpPane, f);
+	
+	
+	//Assign Customer&Employees to Project END
 	
 	
     /*
