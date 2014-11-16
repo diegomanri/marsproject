@@ -1,6 +1,10 @@
 package marsPackage;
 
 import java.awt.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 import javax.swing.*;
 
@@ -59,6 +63,17 @@ public class MarsMain extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					String url = "jdbc:sqlserver://CoT-CIS3365-01\\MSSQLSERVER;databaseName=KIS_DB;integratedSecurity=true";
+					Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+					Connection conn = DriverManager.getConnection(url);
+					System.out.println("connection created");
+					Statement st=conn.createStatement();
+					String sql="SELECT * FROM COUNTRY;";
+					ResultSet rs=st.executeQuery(sql);
+					while(rs.next()){
+						System.out.println("COUNTRY_ID: "+rs.getString(1));
+						System.out.println("COUNTRY_NAME: "+rs.getString(2));
+					}
 					Thread.sleep(1);
 					MarsMain frame = new MarsMain();
 					frame.getContentPane().setBackground(Color.WHITE);
