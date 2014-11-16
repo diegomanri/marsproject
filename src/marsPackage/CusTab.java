@@ -1,17 +1,26 @@
 package marsPackage;
 
 import java.awt.*;
-
+import java.awt.event.*;
 import javax.swing.*;
 
 public class CusTab {
-	 private JLabel testLabel;
-	 private JLabel testLabel2;
-	 private JLabel testLabel3;
-	 private JLabel testLabel4;
 	 private JPanel cusPanel;
 	 private JPanel contentPane;
+	 private JPanel cusCardHolder;
+	 private JPanel quickSpanel;
+	 private JPanel eastPanel;
+	 private JPanel westPanel;
 	 private JScrollPane scrollPane;
+	 private JButton advSbutton;
+	 private JButton quickSbutton;
+	 private JTextField quickSfield;
+	 private JLabel quickSspace;
+	 private JLabel quickSspace2;
+	 private static final String CARD_CUSTOMER = "Card Customer Tab";
+	 private static final String CARD_CUST_ADV_SEARCH = "Card Customer Advanced Search";
+	 private static final String CARD_NEWCUSTOMER = "Card Add Customer";
+	 private CusAdvSearch advCus;
 	    
 	 /*
 	  * Constructor
@@ -20,9 +29,23 @@ public class CusTab {
 	  */
 	    
 	 public CusTab(){
-     //Creating the cusPanel that holds everything
+		 
+	 //Creating cusCardHolder panel which holds ALL cards including cusPanel 
+     cusCardHolder = new JPanel(new CardLayout(0,3));
+     
+     //Creating the cusPanel that holds everything except cusCardHolder
 	 cusPanel = new JPanel();
 	 cusPanel.setBackground(new Color(153, 204, 255));
+     
+     advCus = new CusAdvSearch();
+     
+     /*
+     ==============================
+     Adding cards to the cardholder
+     ==============================
+     */
+     cusCardHolder.add(cusPanel, CARD_CUSTOMER);
+     cusCardHolder.add(advCus.getCusAdvSearch(), CARD_CUST_ADV_SEARCH);
 	    
 	 //Creating the contentPane that holds all GUI components and
 	 //uses vertical/horizontal sidebars as needed
@@ -37,7 +60,7 @@ public class CusTab {
      scrollPane = new JScrollPane(contentPane);
 	 scrollPane.setPreferredSize(new Dimension(875, 550));
 	 scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-	 scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+	 scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 	 scrollPane.setBackground(Color.WHITE);
 	 cusPanel.add(scrollPane);
 	    
@@ -46,35 +69,98 @@ public class CusTab {
 	  * Remember to only use GridBagLayout with GridBagConstraints using the
 	  * g variable.
 	  */
-	            
-	 testLabel = new JLabel("Testing Here 1");
-	 testLabel.setPreferredSize(new Dimension(500, 500));
-	 testLabel.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.gray));
-	 g.gridx = 0;
-	 g.gridy = 0;
-	 contentPane.add(testLabel, g);
+	    //QuickSearch GUI top section START
+     
+	 quickSpanel = new JPanel();
+	 
+	    quickSpanel.setBackground(Color.WHITE);
+	    quickSpanel.setBorder(BorderFactory.createMatteBorder(0,0,2,0, Color.gray));
+	    quickSpanel.setLayout(new BorderLayout());
+	    g.anchor = GridBagConstraints.NORTH;
+	    g.gridx = 0;
+	    g.gridy = 0;
+	  //Adding the quick search panel to the contentPane that holds GUI elements for the
+	  //customers tab.
+	  contentPane.add(quickSpanel, g);
 	    
-	 testLabel2 = new JLabel("Testing Here 2");
-	 testLabel2.setPreferredSize(new Dimension(250, 200));
-	 testLabel2.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.gray));
-	 g.gridx = 1;
-	 g.gridy = 0;
-	 contentPane.add(testLabel2, g);
-	            
-	 testLabel3 = new JLabel("Testing Here 3");
-	 testLabel3.setPreferredSize(new Dimension(200, 200)); 
-	 testLabel3.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.gray));
-	 g.gridx = 1;
-	 g.gridy = 1;
-	 contentPane.add(testLabel3, g);
+	    	eastPanel = new JPanel();
+	    	eastPanel.setBackground(Color.WHITE);
+	    	eastPanel.setLayout(new FlowLayout());
+	    	quickSpanel.add(eastPanel, BorderLayout.EAST);
 	    
-	 testLabel4 = new JLabel("Testing Here 4");
-	 testLabel4.setPreferredSize(new Dimension(200, 200)); 
-	 testLabel4.setBorder(BorderFactory.createMatteBorder(2, 2, 2, 2, Color.gray));
-	 g.gridx = 2;
-	 g.gridy = 2;
-	 contentPane.add(testLabel4, g);
+	    		advSbutton = new JButton("Advanced Search");
+	    		advSbutton.addActionListener(new advSearchButtonListener());
+	    		eastPanel.add(advSbutton);
+	    
+	    	westPanel = new JPanel();
+	    	westPanel.setBackground(Color.WHITE);
+	    	westPanel.setLayout(new FlowLayout());
+	    	quickSpanel.add(westPanel, BorderLayout.WEST);
+	    
+	    		quickSfield = new JTextField("QuickSearch - Enter project code", 17);
+	    		westPanel.add(quickSfield);
+	    		
+	    		quickSfield.addMouseListener(new MouseAdapter(){
+	    			public void mouseClicked(MouseEvent e){
+	    				quickSfield.setText("");
+	    			}
+	    		});
+	    
+	    		quickSbutton = new JButton("Search");
+	    		westPanel.add(quickSbutton);
+	 
+	    	quickSspace = new JLabel();
+	    	quickSspace.setPreferredSize(new Dimension(400, 0));
+	    	quickSpanel.add(quickSspace, BorderLayout.CENTER);
+	    	
+	    	quickSspace2 = new JLabel();
+	    	quickSspace2.setPreferredSize(new Dimension(0, 20));
+	    	quickSpanel.add(quickSspace2, BorderLayout.SOUTH);
+	    
+	    
+	    //QuickSearch GUI top section END
+	    	
 	 }
+	 
+     /* 
+     ======================
+     Button ActionListeners
+     ======================
+   */  
+   
+ 	private class advSearchButtonListener implements ActionListener{
+   		public void actionPerformed(ActionEvent ae){
+   			if (ae.getSource() == advSbutton){
+   			CardLayout cl = (CardLayout) cusCardHolder.getLayout();
+   			cl.show(cusCardHolder, CARD_CUST_ADV_SEARCH);
+   			}
+   		}
+     }	    	
+ 	
+ /*
+     private class newProButtonListener implements ActionListener{
+   		public void actionPerformed(ActionEvent ae){
+   			if (ae.getSource() == addProjectButton){
+   			CardLayout cl = (CardLayout) cardPanel.getLayout();
+   			cl.show(cardPanel, CARD_NEWPROJECT);
+   			}
+   		}
+     }
+
+     private class mainProButtonListener implements ActionListener{
+   		public void actionPerformed(ActionEvent ae){
+   			if (ae.getSource() == backProTabButton){
+   			CardLayout cl = (CardLayout) cardPanel.getLayout();
+   			cl.show(cardPanel, CARD_PROJECTTAB);
+   			}
+   		}
+     }
+   */	    
+	 /*
+	 ==============
+	 CusTab Methods
+	 ==============
+	 */
 	    
 	 /**
 	  * The getCusTab method returns a CusTab object.
@@ -83,5 +169,13 @@ public class CusTab {
 	 
 	public JPanel getCusTab(){
 		return cusPanel;
+	}
+	
+	 /**
+	  * The getCusCardHolder method returns a cusCardHolder JPanel object.
+	  * @return a cusCardHolder JPanel object.
+	  */
+	public JPanel getCusCardHolder(){
+		return cusCardHolder;
 	}
 }

@@ -46,7 +46,7 @@ public class TabPanel extends JPanel {
 		tabPane.setBackgroundAt(2, (new Color(204, 255, 102)));
 		
 		ct = new CusTab();
-		tabPane.addTab("Customers", ct.getCusTab());
+		tabPane.addTab("Customers", ct.getCusCardHolder());
 		tabPane.setBackgroundAt(3, (new Color(153, 204, 255)));
 
 		rt = new RepTab();
