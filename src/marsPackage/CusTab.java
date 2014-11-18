@@ -2,7 +2,10 @@ package marsPackage;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
+
+import java.sql.*;
 
 public class CusTab {
 	 private JPanel cusPanel;
@@ -120,6 +123,21 @@ public class CusTab {
 	    
 	    //QuickSearch GUI top section END
 	    	
+	    	DB db = new DB();
+	    	try {
+	    		String sql = "SELECT * FROM PROJECT_STATUS;";
+				PreparedStatement Stmt = db.getConnection().prepareStatement(sql);
+				ResultSet rs = Stmt.executeQuery();
+            while(rs.next()){
+                    System.out.println("PRO_STATUS_ID: "+rs.getString(1));
+                    System.out.println("PRO_STATUS_NAME: "+rs.getString(2));    
+            }
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				System.err.println("Something wrong with prepared statement test");
+				e1.printStackTrace();
+			}
+	    	db.close();
 	 }
 	 
      /* 

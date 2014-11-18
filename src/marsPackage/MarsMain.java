@@ -1,11 +1,7 @@
 package marsPackage;
 
 import java.awt.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-
+import java.sql.*;
 import javax.swing.*;
 
 public class MarsMain extends JFrame {
@@ -63,17 +59,17 @@ public class MarsMain extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-                    /*This commented out code is just a DB connection test.
+					/*
                     String url = "jdbc:sqlserver://CoT-CIS3365-01\\MSSQLSERVER;databaseName=KIS_DB;integratedSecurity=true";
                     Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                     Connection conn = DriverManager.getConnection(url);
                     System.out.println("connection created");
                     Statement st=conn.createStatement();
-                    String sql="SELECT * FROM COUNTRY;";
+                    String sql="SELECT * FROM PROJECT_STATUS;";
                     ResultSet rs=st.executeQuery(sql);
                     while(rs.next()){
-                            System.out.println("COUNTRY_ID: "+rs.getString(1));
-                            System.out.println("COUNTRY_NAME: "+rs.getString(2));            
+                            System.out.println("PRO_STATUS_ID: "+rs.getString(1));
+                            System.out.println("PRO_STATUS_NAME: "+rs.getString(2));            
                     }
                     */
 					//Thread.sleep(1);

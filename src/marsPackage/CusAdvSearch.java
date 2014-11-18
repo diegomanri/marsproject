@@ -17,6 +17,10 @@ public class CusAdvSearch extends JPanel{
 	private JPanel panel_2;
 	private JPanel panel_3;
 	private JPanel panel_4;
+	private JPanel panel41;
+	private JPanel panel42;
+	private JPanel panel43;
+	private JPanel panel44;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -104,63 +108,79 @@ public class CusAdvSearch extends JPanel{
 		
 		panel_4 = new JPanel((new BorderLayout()));
 		panel_4.setBorder(BorderFactory.createTitledBorder("Search Customers with certain project characterstics"));
-		panel_4.setBackground(Color.white);
+		panel_4.setBackground(Color.WHITE);
 		panel_4.setBounds(10, 178, 474, 173);
 	    f.gridx = 0;
 	    f.gridy = 3;
 	    contentPane.add(panel_4, f);
 		
-		JLabel label_3 = new JLabel("Customer with project that are");
+	    panel41 = new JPanel();
+	    panel41.setBackground(Color.WHITE);
+		JLabel label_3 = new JLabel("Customer with projects that are");
 		label_3.setBounds(10, 25, 175, 14);
-		panel_4.add(label_3, BorderLayout.NORTH);
+		panel41.add(label_3);
+		panel_4.add(panel41, BorderLayout.NORTH);
 		
 		JCheckBox ACTIVE = new JCheckBox("ACTIVE");
 		ACTIVE.setBounds(190, 21, 78, 23);
-		ACTIVE.setBackground(Color.GREEN);
-		ACTIVE.setForeground(Color.BLACK);
-		panel_4.add(ACTIVE);
+		ACTIVE.setBackground(Color.WHITE);
+		//ACTIVE.setBackground(Color.GREEN);
+		//ACTIVE.setForeground(Color.BLACK);
+		panel41.add(ACTIVE);
 		
 		JCheckBox chckbxNewCheckBox_2 = new JCheckBox("COMPLETE");
 		chckbxNewCheckBox_2.setBounds(270, 21, 96, 23);
-		chckbxNewCheckBox_2.setBackground(Color.YELLOW);
-		panel_4.add(chckbxNewCheckBox_2);
+		chckbxNewCheckBox_2.setBackground(Color.WHITE);
+		panel41.add(chckbxNewCheckBox_2);
 		
 		JCheckBox chckbxNewCheckBox = new JCheckBox("ON HOLD");
+		chckbxNewCheckBox.setBackground(Color.WHITE);
 		chckbxNewCheckBox.setBounds(368, 21, 86, 23);
-		panel_4.add(chckbxNewCheckBox);
+		panel41.add(chckbxNewCheckBox);
 		
-		JLabel lblTotalAmountPaid = new JLabel("Total Amount Paid");
+		panel42 = new JPanel(new BorderLayout());
+		panel42.setBackground(Color.WHITE);
+		JLabel lblTotalAmountPaid = new JLabel("Total Amount Billed");
 		lblTotalAmountPaid.setBounds(51, 57, 129, 14);
-		panel_4.add(lblTotalAmountPaid);
+		panel42.add(lblTotalAmountPaid, BorderLayout.NORTH);
+		panel_4.add(panel42, BorderLayout.CENTER);
 		
-		textField_3 = new JTextField();
+		
+		panel43 = new JPanel();
+		panel43.setBackground(Color.WHITE);
+		JLabel lblEqual = new JLabel("EQUAL TO");
+		lblEqual.setBounds(190, 57, 75, 14);
+		panel43.add(lblEqual);
+		panel42.add(panel43, BorderLayout.CENTER);
+		
+		textField_3 = new JTextField(10);
 		textField_3.setBounds(270, 54, 86, 20);
-		panel_4.add(textField_3);
+		panel43.add(textField_3);
 		textField_3.setColumns(10);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(270, 85, 86, 20);
-		panel_4.add(textField_4);
-		textField_4.setColumns(10);
-		
-		textField_5 = new JTextField();
-		textField_5.setBounds(270, 116, 86, 20);
-		panel_4.add(textField_5);
-		textField_5.setColumns(10);
-		
-		JLabel lblEqual = new JLabel(" EQUAL TO");
-		lblEqual.setBounds(190, 57, 75, 14);
-		panel_4.add(lblEqual);
 		
 		JLabel lblNewLabel = new JLabel(">= TO");
 		lblNewLabel.setBounds(190, 88, 46, 14);
-		panel_4.add(lblNewLabel);
+		panel43.add(lblNewLabel);
+		
+		textField_4 = new JTextField();
+		textField_4.setBounds(270, 85, 86, 20);
+		panel43.add(textField_4);
+		textField_4.setColumns(10);
+		
 		
 		JLabel label_4 = new JLabel("<=TO");
 		label_4.setBounds(190, 119, 46, 14);
-		panel_4.add(label_4);
+		panel43.add(label_4);
 		
-		JLabel lblAdvancedSearchFor = new JLabel("             ADVANCED SEARCH FOR CUSTOMERS");
+		textField_5 = new JTextField();
+		textField_5.setBounds(270, 116, 86, 20);
+		panel43.add(textField_5);
+		textField_5.setColumns(10);
+		
+		
+		
+		JLabel lblAdvancedSearchFor = new JLabel("ADVANCED SEARCH FOR CUSTOMERS");
 		lblAdvancedSearchFor.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		lblAdvancedSearchFor.setForeground(Color.BLACK);
 		lblAdvancedSearchFor.setBackground(Color.RED);
@@ -168,7 +188,7 @@ public class CusAdvSearch extends JPanel{
 	    f.gridx = 0;
 	    f.gridy = 0;
 	    contentPane.add(lblAdvancedSearchFor, f);
-		//panel.add(lblAdvancedSearchFor);
+
 		
 	}
 
