@@ -356,7 +356,7 @@ public class ProTab extends JPanel {
     ======================
     */
     
-    private class newProButtonListener implements ActionListener{
+    public class newProButtonListener implements ActionListener{
   		public void actionPerformed(ActionEvent ae){
   			if (ae.getSource() == addProjectButton){
   			CardLayout cl = (CardLayout) cardPanel.getLayout();

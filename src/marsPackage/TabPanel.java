@@ -34,7 +34,7 @@ public class TabPanel extends JPanel {
 		tabPane.setBackground(Color.WHITE);
 		
 		dt = new DashTab();
-		tabPane.addTab("Dashboard", dt.getDashTab());
+		tabPane.addTab("Dashboard", dt.getDashCardLayout());
 		tabPane.setBackgroundAt(0, (new Color(255, 255, 255)));
 		
 		et = new EmpTab();
