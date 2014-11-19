@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 
 public class ProTab extends JPanel {
 	/**
@@ -19,7 +18,7 @@ public class ProTab extends JPanel {
     private JButton quickSbutton;
     private JButton tNextButton;
     private JButton tPrevButton;
-    private JButton viewProjectButton;
+    private JButton editProjectButton;
     private JButton addProjectButton;
     private JLabel proTableTitle;
     private JTextField quickSfield;
@@ -49,6 +48,19 @@ public class ProTab extends JPanel {
 	private JLabel buttonPanelSpace;
 	private JLabel newTableTitle;
 	private ProPanels newPro;
+	
+	/*
+	 * EditProject variables
+	 */
+	
+	private JPanel editProPanel;
+	private JPanel econtentPane;
+	private JPanel eButtonsPanel;
+	private JScrollPane escrollPane;
+	private JButton bProTabButton;
+	private JButton saveChangesButton;
+	private JLabel editProjectTitle;
+	private JLabel ebuttonPanelSpace;
     
 	/*
 	 * CardLayout Variables
@@ -56,6 +68,7 @@ public class ProTab extends JPanel {
     private JPanel cardPanel;
     private static final String CARD_PROJECTTAB = "Card Project Tab";
     private static final String CARD_NEWPROJECT = "Card Add Project";
+    private static final String CARD_EDITPROJECT = "Card Edit Project";
     
     
     /*CONSTRUCTOR*/
@@ -74,6 +87,9 @@ public class ProTab extends JPanel {
     newProPanel = new JPanel();
     newProPanel.setBackground(new Color(204, 255, 102));
     
+	//Creating the card editProPanel that holds the Edit Project screen items
+    editProPanel = new JPanel();
+    editProPanel.setBackground(new Color(204, 255, 102));
     
     /*
       ==========================
@@ -83,6 +99,7 @@ public class ProTab extends JPanel {
 
     cardPanel.add(proPanel, CARD_PROJECTTAB);
     cardPanel.add(newProPanel, CARD_NEWPROJECT);
+    cardPanel.add(editProPanel, CARD_EDITPROJECT);
  
     /*
 		======================
@@ -290,13 +307,14 @@ public class ProTab extends JPanel {
 	    g.gridy = 2;
 	    contentPane.add(bButtonsPanel, g);
 	    
-	viewProjectButton = new JButton("View Selected Project");
+	editProjectButton = new JButton("Edit Selected Project");
 	addProjectButton = new JButton ("Add a New Project");
 	
-	bButtonsPanel.add(viewProjectButton);
+	bButtonsPanel.add(editProjectButton);
 	bButtonsPanel.add(addProjectButton);
 	
 	addProjectButton.addActionListener(new newProButtonListener());
+	editProjectButton.addActionListener(new editProButtonListener());
 	
 	//Project bottom buttons END
 	
@@ -389,15 +407,86 @@ public class ProTab extends JPanel {
 	ncontentPane.add(addEmpPane, f);
 	
 	
-	//Assign Customer&Employees to Project END
-	
 	
     /*
 		====================
 		New Project page END
 		====================
      */
-    }
+	
+    /*
+		=======================
+		EDIT Project page START
+		=======================
+     */
+	
+	//contentPane Panel holds all other panels together in this class.
+    econtentPane = new JPanel();
+    econtentPane.setBackground(Color.WHITE);
+    
+    //Giving the contentPane the GridBagLayout
+    econtentPane.setLayout(new GridBagLayout());
+    GridBagConstraints e = new GridBagConstraints();
+    e.insets = new Insets(20,0,0,0);
+    
+	//Adding scrollPane to Content Pane and adding those two to newProPanel
+	escrollPane = new JScrollPane(econtentPane);
+	escrollPane.setPreferredSize(new Dimension(875, 550));
+	escrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+	escrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+	escrollPane.setBackground(Color.WHITE);
+	editProPanel.add(escrollPane);
+    
+	//EDIT Project top buttons START
+	/*
+	 	private JPanel editProPanel;
+	private JPanel econtentPane;
+	private JScrollPane escrollPane;
+	private JButton bProTabButton;
+	private JButton SaveChangesButton;
+	private JLabel editProjectTitle;
+	 
+	 */
+	
+	
+		eButtonsPanel = new JPanel();
+		eButtonsPanel.setBackground(Color.WHITE);
+		eButtonsPanel.setBorder(BorderFactory.createMatteBorder(0,0,2,0, Color.gray));
+		eButtonsPanel.setLayout(new FlowLayout());
+		    e.anchor = GridBagConstraints.PAGE_END;
+		    e.gridx = 0;
+		    e.gridy = 1;
+		    econtentPane.add(eButtonsPanel, e);
+		    
+		bProTabButton = new JButton("Go Back");
+		bProTabButton.addActionListener(new mainPro2ButtonListener());
+		
+		
+		saveChangesButton = new JButton("Save Changes");
+		saveChangesButton.setBackground(Color.GREEN);
+		
+		ebuttonPanelSpace = new JLabel();
+		ebuttonPanelSpace.setPreferredSize(new Dimension(625, 0));
+		
+		eButtonsPanel.add(bProTabButton);
+		eButtonsPanel.add(saveChangesButton);
+		eButtonsPanel.add(ebuttonPanelSpace);
+		
+	//EDIT Project top buttons END
+	
+	
+	
+	
+	
+	
+	
+    /*
+		=====================
+		EDIT Project page END
+		=====================
+     */
+	
+    } // <-- DON'T FORGET ABOUT THIS GUY
     
     /*
     ======================
@@ -413,10 +502,28 @@ public class ProTab extends JPanel {
   			}
   		}
     }
+    
+    private class editProButtonListener implements ActionListener{
+  		public void actionPerformed(ActionEvent ae){
+  			if (ae.getSource() == editProjectButton){
+  			CardLayout cl = (CardLayout) cardPanel.getLayout();
+  			cl.show(cardPanel, CARD_EDITPROJECT);
+  			}
+  		}
+    }
 
     private class mainProButtonListener implements ActionListener{
   		public void actionPerformed(ActionEvent ae){
   			if (ae.getSource() == backProTabButton){
+  			CardLayout cl = (CardLayout) cardPanel.getLayout();
+  			cl.show(cardPanel, CARD_PROJECTTAB);
+  			}
+  		}
+    }
+    
+    private class mainPro2ButtonListener implements ActionListener{
+  		public void actionPerformed(ActionEvent ae){
+  			if (ae.getSource() == bProTabButton){
   			CardLayout cl = (CardLayout) cardPanel.getLayout();
   			cl.show(cardPanel, CARD_PROJECTTAB);
   			}
