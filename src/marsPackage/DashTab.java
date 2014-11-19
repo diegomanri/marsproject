@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -13,15 +13,10 @@ import java.sql.Timestamp;
 import java.sql.Types;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-
-import marsPackage.ProTab.newProButtonListener;
 
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
-import org.jfree.ui.ApplicationFrame;
-import org.jfree.ui.RefineryUtilities;
 import org.jfree.chart.axis.CategoryAxis;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.CategoryPlot;
@@ -33,28 +28,17 @@ import org.jfree.data.general.PieDataset;
 
 
 
-
-
-
-//import prototype.LineChart_AWT;
-
 public class DashTab extends JPanel{
 
-        private JLabel testLabel;
-        private JLabel testLabel2;
-        private JLabel testLabel3;
-        private JLabel testLabel4;
+
         private JPanel dashPanel;
         private JPanel contentPane;
-        private JPanel test;
         private JScrollPane scrollPane;
         private JPanel dashCardLayout;
-        private JPanel tPanel;
-        //private JFreeChart LineChart_AWT;
-        //private LineChart_AWT chartPanel;
         private ChartPanel chartPanel;
         private ChartPanel chartPanel2;
-        //private JTable tableContainer;
+        private JTable proTable;
+        private JScrollPane proTableSP;
         
         /*
          * Constructor
@@ -197,20 +181,9 @@ public class DashTab extends JPanel{
     	 
     	 
     /////////////////////////////////////////////////////////////////////////////
-    	 // Project Table START
-    	    
-    	    // Adding temporary data
-    	    String[] columns = {"Project Name","Employee First Name","Employee Last Name"};
-    	    Integer[][] data = new Integer[1000][columns.length];
-    	    
-    	        for (int xx=0; xx<data.length; xx++) {
-    	            for (int yy=0; yy<data[0].length; yy++) {
-    	                data[xx][yy] = new Integer((xx+1)*(yy+1));
-    	            }
-    	        }
-    	    
+
     	    final int rows = 10;
-    	        
+    	      
     	    //tablePanel contains the table and the panel that contains the table's navigation items (tableNavPanel)
     	    //And table Title panel as well!
     		//Adding Table related panels to contentPane
@@ -223,10 +196,63 @@ public class DashTab extends JPanel{
     	    g.gridy = 1;
     	    contentPane.add(tablePanel, g);
     	    
-    	    final JTable proTable = new JTable(
-    	    		new DefaultTableModel(data, columns));
-    	    		
-    	    final JScrollPane proTableSP = new JScrollPane(
+    	    
+    	    DB db = new DB();
+    		try {
+    			
+    			String sql = "SELECT PROJECT.PROJECT_ID AS 'Project ID'\n"
+							+"	 , PROJECT.PROJECT_NAME AS 'Project Name'\n"
+							+"	 , PROJECT_STATUS.PRO_STATUS_NAME AS 'Status'\n"
+							+"	 , EMPLOYEE.EMP_FIRST_NAME AS 'F. Name'\n"
+							+"	 , EMPLOYEE.EMP_LAST_NAME AS 'L. Name'\n"
+						+"	FROM PROJECT_STATUS\n"
+						+"	INNER JOIN PROJECT ON PROJECT_STATUS.PRO_STATUS_ID = PROJECT.PRO_STATUS_ID\n"
+						+"	INNER JOIN EMP_PAY_PRO_ASSIGN ON EMP_PAY_PRO_ASSIGN.PROJECT_ID = PROJECT.PROJECT_ID\n"
+						+"	INNER JOIN EMPLOYEE ON EMPLOYEE.EMPLOYEE_ID = EMP_PAY_PRO_ASSIGN.EMPLOYEE_ID\n"
+						+"	WHERE PROJECT_STATUS.PRO_STATUS_ID = 1\n"
+						+"	ORDER BY 'Project ID' DESC;";
+    					
+    					
+    			PreparedStatement Stmt = db.getConnection().prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+    			ResultSet rs = Stmt.executeQuery();
+    			ResultSetMetaData meta = Stmt.getMetaData();
+    			
+    			int colCount = meta.getColumnCount();
+    			String[] colNames = new String[colCount];
+    			
+    			rs.last();
+    			int numRows = rs.getRow();
+    			rs.first();
+    			
+    			String[][] data = new String[numRows][colCount];
+    			
+    			for(int i2 = 0; i2 < numRows; i2++){
+    				for(int j2 = 0; j2 < colCount; j2++){
+    					data[i2][j2] = rs.getString(j2 + 1);
+    				}
+    				rs.next();
+    			}
+    			
+    			for(int i2 = 0; i2 < colCount; i2++){
+    				colNames[i2] = meta.getColumnLabel(i2 + 1);
+    			}
+    			
+    		/*DB connection to table TEST*/
+    		
+    	    proTable = new JTable(data, colNames);
+
+    		} catch (SQLException e1) {
+    			// TODO Auto-generated catch block
+    			System.err.println("Something wrong with loading data to the project table in the GUI");
+    			e1.printStackTrace();
+    		}
+    		db.close();
+    	    
+    	    
+    	    
+    	   
+    	    
+    	     proTableSP = new JScrollPane(
     	    		proTable, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     	    		Dimension d = proTable.getPreferredSize();
     	    		proTableSP.setPreferredSize(new Dimension(d.width,proTable.getRowHeight()*rows));	
