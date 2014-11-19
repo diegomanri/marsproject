@@ -197,7 +197,14 @@ public class ProTab extends JPanel {
     DB db = new DB();
 	try {
 		
-		String sql = "SELECT * FROM PROJECT;";
+		String sql = "SELECT PROJECT.PROJECT_ID AS 'ID'\n"
+						+" , PROJECT_STATUS.PRO_STATUS_NAME AS 'Project Status'\n"
+					    +" , PROJECT.PROJECT_NAME AS 'Project Name'\n"
+					    +" , PROJECT.PRO_STARTDATE AS 'Start Date'\n"
+						+" , PROJECT.PRO_ENDDATE AS 'End Date'\n"
+						+"FROM PROJECT_STATUS\n"
+						+"INNER JOIN PROJECT    ON PROJECT_STATUS.PRO_STATUS_ID = PROJECT.PRO_STATUS_ID\n"
+						+"ORDER BY 'ID' DESC;";
 		PreparedStatement Stmt = db.getConnection().prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 		ResultSet rs = Stmt.executeQuery();
 		ResultSetMetaData meta = Stmt.getMetaData();
@@ -225,12 +232,13 @@ public class ProTab extends JPanel {
 	/*DB connection to table TEST*/
 	
     proTable = new JTable(data, colNames);
+
 	} catch (SQLException e1) {
 		// TODO Auto-generated catch block
-		System.err.println("Something wrong with prepared statement test");
+		System.err.println("Something wrong with loading data to the project table in the GUI");
 		e1.printStackTrace();
 	}
-	//db.close();
+	db.close();
     		
     proTableSP = new JScrollPane(
     		proTable, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -397,7 +405,7 @@ public class ProTab extends JPanel {
     ======================
     */
     
-    public class newProButtonListener implements ActionListener{
+    private class newProButtonListener implements ActionListener{
   		public void actionPerformed(ActionEvent ae){
   			if (ae.getSource() == addProjectButton){
   			CardLayout cl = (CardLayout) cardPanel.getLayout();
