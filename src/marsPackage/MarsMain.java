@@ -3,6 +3,7 @@ package marsPackage;
 import java.awt.*;
 import java.sql.*;
 import javax.swing.*;
+import org.jfree.ui.RefineryUtilities;
 
 public class MarsMain extends JFrame {
 
@@ -20,7 +21,7 @@ public class MarsMain extends JFrame {
 		
 		//Setting up the JFrame
 		setTitle("MARS 1.0");
-		setPreferredSize(new Dimension(1000, 710));
+		setPreferredSize(new Dimension(1000, 768));
 		setResizable(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -33,7 +34,7 @@ public class MarsMain extends JFrame {
 		
 		//Creating the panel holder
 		panelHolder = new JLayeredPane();
-		panelHolder.setPreferredSize(new Dimension(1000, 710));
+		panelHolder.setPreferredSize(new Dimension(1000, 1000));
 		setLayout(new BorderLayout());
 		add(panelHolder, BorderLayout.NORTH);
 		panelHolder.setBounds(0, 0, 600, 400);
@@ -59,7 +60,9 @@ public class MarsMain extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+
 					/*
+					This is the initial DB connectivity test
                     String url = "jdbc:sqlserver://CoT-CIS3365-01\\MSSQLSERVER;databaseName=KIS_DB;integratedSecurity=true";
                     Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
                     Connection conn = DriverManager.getConnection(url);
