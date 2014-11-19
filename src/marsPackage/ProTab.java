@@ -2,7 +2,7 @@ package marsPackage;
 
 import java.awt.*;
 import java.awt.event.*;
-
+import java.sql.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -165,6 +165,7 @@ public class ProTab extends JPanel {
     // Project Table START
     
     // Adding temporary data
+    	/*
     String[] columns = {"Select","Project Name","Customer","Start Date","End Date","Status"};
     Integer[][] data = new Integer[1000][columns.length];
     
@@ -173,9 +174,11 @@ public class ProTab extends JPanel {
                 data[xx][yy] = new Integer((xx+1)*(yy+1));
             }
         }
+       */
     
     final int rows = 19;
-        
+       
+    	
     //tablePanel contains the table and the panel that contains the table's navigation items (tableNavPanel)
     //And table Title panel as well!
 	//Adding Table related panels to contentPane
@@ -188,8 +191,46 @@ public class ProTab extends JPanel {
     g.gridy = 1;
     contentPane.add(tablePanel, g);
     
-    proTable = new JTable(
-    		new DefaultTableModel(data, columns));
+
+    
+    /*DB connection to table TEST*/
+    DB db = new DB();
+	try {
+		
+		String sql = "SELECT * FROM PROJECT;";
+		PreparedStatement Stmt = db.getConnection().prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+		ResultSet rs = Stmt.executeQuery();
+		ResultSetMetaData meta = Stmt.getMetaData();
+		
+		int colCount = meta.getColumnCount();
+		String[] colNames = new String[colCount];
+		
+		rs.last();
+		int numRows = rs.getRow();
+		rs.first();
+		
+		String[][] data = new String[numRows][colCount];
+		
+		for(int i = 0; i < numRows; i++){
+			for(int j = 0; j < colCount; j++){
+				data[i][j] = rs.getString(j + 1);
+			}
+			rs.next();
+		}
+		
+		for(int i = 0; i < colCount; i++){
+			colNames[i] = meta.getColumnLabel(i + 1);
+		}
+		
+	/*DB connection to table TEST*/
+	
+    proTable = new JTable(data, colNames);
+	} catch (SQLException e1) {
+		// TODO Auto-generated catch block
+		System.err.println("Something wrong with prepared statement test");
+		e1.printStackTrace();
+	}
+	//db.close();
     		
     proTableSP = new JScrollPane(
     		proTable, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
