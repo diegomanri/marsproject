@@ -3,6 +3,8 @@ package marsPackage;
 import javax.swing.*;
 
 import java.awt.*;
+import java.io.IOException;
+import java.sql.SQLException;
 
 /*
  * The TabPanel class holds the vertical tabbed menu
@@ -33,12 +35,23 @@ public class TabPanel extends JPanel {
 		
 		tabPane.setBackground(Color.WHITE);
 		
-		dt = new DashTab();
+		try {
+			dt = new DashTab();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		tabPane.addTab("Dashboard", dt.getDashCardLayout());
 		tabPane.setBackgroundAt(0, (new Color(255, 255, 255)));
 		
 		et = new EmpTab();
-		tabPane.addTab("Employees", et.getEmpTab());
+		tabPane.addTab("Employees", et.getCardPanel());
 		tabPane.setBackgroundAt(1, (new Color(255, 204, 153)));
 		
 		pt = new ProTab();
