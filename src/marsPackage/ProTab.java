@@ -61,6 +61,8 @@ public class ProTab extends JPanel {
 	private JButton saveChangesButton;
 	private JLabel editProjectTitle;
 	private JLabel ebuttonPanelSpace;
+	private EditPro editPro;
+	private JPanel editEmpPane;
     
 	/*
 	 * CardLayout Variables
@@ -474,7 +476,12 @@ public class ProTab extends JPanel {
 		
 	//EDIT Project top buttons END
 	
-	
+		//Assign Customer&Employees to Project START
+		editPro = new EditPro();
+		JPanel editEmpPane = editPro.getEditEmpPanel();
+		e.gridx = 0;
+		e.gridy = 2;
+		econtentPane.add(editEmpPane, e);
 	
 	
 	

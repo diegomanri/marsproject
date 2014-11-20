@@ -1,9 +1,7 @@
 package marsPackage;
 
 import java.awt.*;
-import java.sql.*;
 import javax.swing.*;
-import org.jfree.ui.RefineryUtilities;
 
 public class MarsMain extends JFrame {
 
@@ -14,7 +12,6 @@ public class MarsMain extends JFrame {
 	private JLayeredPane panelHolder;
 	private AppLogoPanel applogo;
 	private TabPanel tabpanel;
-	//private GridBagConstraints gbc;
 	
 	
 	public MarsMain(){
@@ -60,21 +57,6 @@ public class MarsMain extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-
-					/*
-					This is the initial DB connectivity test
-                    String url = "jdbc:sqlserver://CoT-CIS3365-01\\MSSQLSERVER;databaseName=KIS_DB;integratedSecurity=true";
-                    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-                    Connection conn = DriverManager.getConnection(url);
-                    System.out.println("connection created");
-                    Statement st=conn.createStatement();
-                    String sql="SELECT * FROM PROJECT_STATUS;";
-                    ResultSet rs=st.executeQuery(sql);
-                    while(rs.next()){
-                            System.out.println("PRO_STATUS_ID: "+rs.getString(1));
-                            System.out.println("PRO_STATUS_NAME: "+rs.getString(2));            
-                    }
-                    */
 					//Thread.sleep(1);
 					MarsMain frame = new MarsMain();
 					frame.getContentPane().setBackground(Color.WHITE);
